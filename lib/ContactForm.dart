@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class ContactForm extends StatefulWidget {
@@ -29,12 +30,30 @@ class _ContactFormState extends State<ContactForm> {
         _email = _emailController.text;
         _password = _passwordController.text;
       });
+      //show a snackbar with successs
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Form Submiited Succesfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
 
       // Optionally, you could clear the fields after submission:
       // _usernameController.clear();
       // _emailController.clear();
       // _passwordController.clear();
     } else {
+      //show a snackbar with error
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Form is invalid! please Fix Errors!!!'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+          dismissDirection: DismissDirection.vertical ,
+          
+        ),
+      );
       print("Form is invalid.");
     }
   }
@@ -72,7 +91,8 @@ class _ContactFormState extends State<ContactForm> {
             children: [
               // Username field with validation
               TextFormField(
-                controller: _usernameController, // Controller for username field
+                controller:
+                    _usernameController, // Controller for username field
                 autovalidateMode: AutovalidateMode.onUnfocus,
                 decoration: InputDecoration(
                     labelText: "Username",
@@ -113,7 +133,8 @@ class _ContactFormState extends State<ContactForm> {
 
               // Password field with validation
               TextFormField(
-                controller: _passwordController, // Controller for password field
+                controller:
+                    _passwordController, // Controller for password field
                 autovalidateMode: AutovalidateMode.onUnfocus,
                 obscureText: true, // To hide the password
                 decoration: InputDecoration(
@@ -145,25 +166,30 @@ class _ContactFormState extends State<ContactForm> {
                   ),
                 ),
               ),
-              
+
               // Display the entered data below the form
               const SizedBox(height: 20.0),
 
               // Display user input after form submission
-              if (_username.isNotEmpty || _email.isNotEmpty || _password.isNotEmpty)
+              if (_username.isNotEmpty ||
+                  _email.isNotEmpty ||
+                  _password.isNotEmpty)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Your username is: $_username", style: const TextStyle(color: Colors.amber)),
-                    Text("Your email is: $_email", style: const TextStyle(color: Colors.green)),
-                    Text("Your password is: $_password", style: const TextStyle(color: Colors.purple)),
+                    Text("Your username is: $_username",
+                        style: const TextStyle(color: Colors.amber)),
+                    Text("Your email is: $_email",
+                        style: const TextStyle(color: Colors.green)),
+                    Text("Your password is: $_password",
+                        style: const TextStyle(color: Colors.purple)),
                   ],
                 ),
             ],
           ),
         ),
       ),
- bottomNavigationBar: BottomNavigationBar(items: [
+      bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(icon: Icon(Icons.email), label: 'Email'),
         BottomNavigationBarItem(icon: Icon(Icons.password), label: 'Password'),
         BottomNavigationBarItem(
@@ -172,5 +198,3 @@ class _ContactFormState extends State<ContactForm> {
     );
   }
 }
-
-
